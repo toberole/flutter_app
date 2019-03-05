@@ -124,6 +124,7 @@ class MyApp extends StatelessWidget {
 
     return new MaterialApp(
       title: 'Welcome to Flutter',
+      theme: new ThemeData(primaryColor: Colors.white),
       home: new Scaffold(
         appBar: new AppBar(
           title: new Text('Flutter'),
@@ -179,14 +180,16 @@ class RandomWordsState extends State<RandomWords> {
       });
 
       final divided =
-      ListTile.divideTiles(
-          tiles: tiles,
-          context: context)
-          .toList();
+          ListTile.divideTiles(tiles: tiles, context: context).toList();
 
       return new Scaffold(
-        appBar: new AppBar(title: new Text("Saved Suggrstions"),),
-        body: new ListView(children: divided,),);
+        appBar: new AppBar(
+          title: new Text("Saved Suggrstions"),
+        ),
+        body: new ListView(
+          children: divided,
+        ),
+      );
     }));
   }
 
