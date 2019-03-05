@@ -159,14 +159,41 @@ class RandomWordsState extends State<RandomWords> {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Startup Name Generator"),
+        actions: <Widget>[
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
       ),
       body: _buildSuggestions(),
     );
   }
 
+  void _pushSaved() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      final tiles = _saved.map((pair) {
+        return new ListTile(
+          title: new Text(
+            pair.asPascalCase,
+            style: _biggerFont,
+          ),
+        );
+      });
+
+      final divided =
+      ListTile.divideTiles(
+          tiles: tiles,
+          context: context)
+          .toList();
+
+      return new Scaffold(
+        appBar: new AppBar(title: new Text("Saved Suggrstions"),),
+        body: new ListView(children: divided,),);
+    }));
+  }
+
   Widget _buildSuggestions() {
     return new ListView.builder(
-      // 对于每个建议的单词对都会调用一次itemBuilder，然后将单词对添加到ListTile行中
+      // 对于每个建议的单词对都会调用一次itemBuilder，
+      // 然后将单词对添加到ListTile行中
       // 在偶数行，该函数会为单词对添加一个ListTile row.
       // 在奇数行，该函数会添加一个分割线widget，来分隔相邻的词对。
 
