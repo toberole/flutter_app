@@ -119,47 +119,22 @@ void main() => runApp(new MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
-
-    Widget titleSection = new Container(
-      padding: const EdgeInsets.all(32.0),
-      child: new Row(
-        children: [
-          new Expanded(
-            child: new Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                new Container(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: new Text(
-                    'Oeschinen Lake Campground',
-                    style: new TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                new Text(
-                  'Kandersteg, Switzerland',
-                  style: new TextStyle(
-                    color: Colors.grey[500],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          new Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          new Text('41'),
-        ],
-      ),
-    );
+    // 使用english_words
+    // final wordpair = new WordPair.random();
 
     return new MaterialApp(
-      title: 'demo',
-      theme: new ThemeData(
-          primaryColor: Colors.white
+      title: 'Welcome to Flutter',
+      theme: new ThemeData(primaryColor: Colors.white),
+      home: new Scaffold(
+        appBar: new AppBar(
+          title: new Text('Flutter'),
+          centerTitle: true,
+        ),
+        body: new Center(
+          // 使用wordpair生成字符串
+          // child: new Text(wordpair.asPascalCase),
+          child: new RandomWords(),
+        ),
       ),
     );
   }
