@@ -149,6 +149,7 @@ class RandomWords extends StatefulWidget {
 class RandomWordsState extends State<RandomWords> {
   final _suggestions = <WordPair>[];
   final _biggerFont = const TextStyle(fontSize: 18.0);
+  final _saved = new Set<WordPair>();
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +157,9 @@ class RandomWordsState extends State<RandomWords> {
 //    return new Text(wordPair.asPascalCase);
     // 在Dart语言中使用下划线前缀标识符，会强制其变成私有的
     return new Scaffold(
-      appBar: new AppBar(title: new Text("Startup Name Generator"),),
+      appBar: new AppBar(
+        title: new Text("Startup Name Generator"),
+      ),
       body: _buildSuggestions(),
     );
   }
@@ -184,11 +187,28 @@ class RandomWordsState extends State<RandomWords> {
   }
 
   Widget _buildRow(WordPair pair) {
+    final alreadySaved = _saved.contains(pair);
+
     return new ListTile(
       title: new Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
+      trailing: new Icon(
+        alreadySaved ? Icons.favorite : Icons.favorite_border,
+        color: alreadySaved ? Colors.red : null,
+      ),
+      onTap: () {
+        // 在Flutter的响应式风格的框架中，
+        // 调用setState() 会为State对象触发build()方法，从而导致对UI的更新
+        setState(() {
+          if (alreadySaved) {
+            _saved.remove(pair);
+          } else {
+            _saved.add(pair);
+          }
+        });
+      },
     );
   }
 }
