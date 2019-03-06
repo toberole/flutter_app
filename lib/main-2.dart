@@ -111,57 +111,77 @@
 //}
 import 'package:flutter/material.dart';
 
-// 状态
-
-void main() {
-  runApp(new MyApp());
+// (=>)符号 Dart中单行函数或方法的简写
+void main1() {
+  runApp(
+    new Center(
+      child: new Text(
+        'hello world',
+        textDirection: TextDirection.ltr,
+      ),
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
+//void main() {
+//  runApp(new MyApp());
+//}
+
+class MyAppBar extends StatelessWidget {
+  final Widget title;
+
+  MyAppBar({this.title});
+
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "hello demo",
-      theme: new ThemeData(primaryColor: Colors.white),
-      home: new Scaffold(
-        appBar: new AppBar(
-          title:  new Text("hello demo"),
-          centerTitle: true,
-
-        ),
-        body: new Center(
-          child: new Counter(),
-        ),
+    return new Container(
+      height: 56.0,
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      decoration: new BoxDecoration(color: Colors.blue[500]),
+      // Row 水平方向的线性布局
+      child: new Row(
+        children: <Widget>[
+          new IconButton(
+              icon: new Icon(Icons.menu),
+              tooltip: "navigation menut",
+              onPressed: null),
+          // Expanded 表示该组件会填充没有被其他组件使用的剩余空间
+          // Expanded 可以有多个child，可以使用flex来确定他们占用剩余空间的比例
+          new Expanded(child: title),
+          new IconButton(
+              icon: new Icon(Icons.search), tooltip: "search", onPressed: null),
+        ],
       ),
     );
   }
 }
 
-class Counter extends StatefulWidget {
+class MyScaffold extends StatelessWidget {
   @override
-  _CounterState createState() {
-    return new _CounterState();
+  Widget build(BuildContext context) {
+    // Material相当于UI呈现的一张纸
+    return new Material(
+      // Column 垂直方向线性布局
+      child: new Column(
+        children: <Widget>[
+          new MyAppBar(
+              title: new Text(
+            "demo title",
+            style: Theme.of(context).primaryTextTheme.title,
+          )),
+          new Expanded(
+              child: new Center(
+            child: new Text("hello demo"),
+          ))
+        ],
+      ),
+    );
   }
 }
 
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        new RaisedButton(
-          onPressed: _increment,
-          child: new Text("count: $_counter"),
-        )
-      ],
-    );
-  }
-
-  void _increment() {
-    setState(() {
-      _counter++;
-    });
-  }
+void main() {
+  runApp(new MaterialApp(
+    title: "demo app",
+    home: new MyScaffold(),
+  ));
 }

@@ -111,57 +111,31 @@
 //}
 import 'package:flutter/material.dart';
 
-// 状态
+// 处理手势
 
 void main() {
-  runApp(new MyApp());
+  runApp(new MyButton());
 }
 
-class MyApp extends StatelessWidget {
+// 不具备显示的效果 主要演示了点击事件
+class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "hello demo",
-      theme: new ThemeData(primaryColor: Colors.white),
-      home: new Scaffold(
-        appBar: new AppBar(
-          title:  new Text("hello demo"),
-          centerTitle: true,
-
-        ),
-        body: new Center(
-          child: new Counter(),
+    return new GestureDetector(
+      onTap: () {
+        print("button was tapped");
+      },
+      child: new Container(
+        height: 36.0,
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0),
+        decoration: new BoxDecoration(
+            borderRadius: new BorderRadius.circular(5.0),
+            color: Colors.lightGreen[500]),
+        child: new Center(
+          child: new Text("hello Engage"),
         ),
       ),
     );
-  }
-}
-
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() {
-    return new _CounterState();
-  }
-}
-
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        new RaisedButton(
-          onPressed: _increment,
-          child: new Text("count: $_counter"),
-        )
-      ],
-    );
-  }
-
-  void _increment() {
-    setState(() {
-      _counter++;
-    });
   }
 }

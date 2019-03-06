@@ -111,57 +111,47 @@
 //}
 import 'package:flutter/material.dart';
 
-// 状态
+// 使用Maternal组件
+// Material应用程序以MaterialApp widget开始
+// 该widget在应用程序的根部创建了一些有用的widget
+// 其中包括一个Navigator， 它管理由字符串标识的Widget栈（即页面路由栈）。
+// Navigator可以让您的应用程序在页面之间的平滑的过渡。
 
 void main() {
-  runApp(new MyApp());
+  runApp(new MaterialApp(
+    title: "Flutter Tutorial",
+    home: new TutorialHome(),
+  ));
 }
 
-class MyApp extends StatelessWidget {
+class TutorialHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: "hello demo",
-      theme: new ThemeData(primaryColor: Colors.white),
-      home: new Scaffold(
-        appBar: new AppBar(
-          title:  new Text("hello demo"),
-          centerTitle: true,
-
+    // Scaffold 是material 中的主要组件
+    return new Scaffold(
+      appBar: new AppBar(
+        leading: new IconButton(
+          icon: new Icon(Icons.menu),
+          onPressed: null,
+          tooltip: "navigation menu",
         ),
-        body: new Center(
-          child: new Counter(),
-        ),
+        title: new Text("demo title"),
+        actions: <Widget>[
+          new IconButton(
+            icon: new Icon(Icons.search),
+            onPressed: null,
+            tooltip: "search",
+          )
+        ],
+      ),
+      body: new Center(
+        child: new Text("hello demo"),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: null,
+        tooltip: "Add",
+        child: new Icon(Icons.add),
       ),
     );
-  }
-}
-
-class Counter extends StatefulWidget {
-  @override
-  _CounterState createState() {
-    return new _CounterState();
-  }
-}
-
-class _CounterState extends State<Counter> {
-  int _counter = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return new Row(
-      children: <Widget>[
-        new RaisedButton(
-          onPressed: _increment,
-          child: new Text("count: $_counter"),
-        )
-      ],
-    );
-  }
-
-  void _increment() {
-    setState(() {
-      _counter++;
-    });
   }
 }
