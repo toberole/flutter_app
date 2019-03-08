@@ -8,38 +8,58 @@ void main() {
   ));
 }
 
-class AppPage extends StatefulWidget {
-  AppPage({Key key}) : super(key: key);
-
-  @override
-  _ApppageState createState() {
-    return new _ApppageState();
-  }
-}
-
-class _ApppageState extends State {
-  String textStr = "hello flutter";
-
-  void _updateText() {
-    setState(() {
-      textStr = "hello android";
-    });
-  }
-
+class AppPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text("android"),
+        title: new Text("hello"),
       ),
-      body: new Center(
-        child: new Text(textStr),
-      ),
-      floatingActionButton: new FloatingActionButton(
-        onPressed: _updateText,
-        tooltip: "update text",
-        child: new Icon(Icons.update),
+      body: new Column(
+        children: <Widget>[
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new RaisedButton(
+                onPressed: _connected,
+                child: new Text("连接设备"),
+              )),
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new TextField(
+                textAlign: TextAlign.center,
+                decoration: new InputDecoration(hintText: "wifi name"),
+              ))
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new TextField(
+                textAlign: TextAlign.center,
+                decoration: new InputDecoration(hintText: "wifi pwd"),
+              ))
+            ],
+          ),
+          new Row(
+            children: <Widget>[
+              new Expanded(
+                  child: new RaisedButton(
+                onPressed: _connected,
+                child: new Text("配置网络"),
+              )),
+            ],
+          ),
+        ],
       ),
     );
+  }
+
+  void _connected() {
+    // 连接设备
+    print("连接设备");
   }
 }
